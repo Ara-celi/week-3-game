@@ -7,33 +7,74 @@
 		
 	<h1>The Psychic Game</h1>	
 
-	<div id="game">
+	
 		<p>Guess what letter I'm thinking of</p>
-	</div>
+		<input type="text" name="guessInput" id="submitField">
+		<p> Wins: </p>
+		<p>losses: </p>
+		<p>Guesses Left: </p>
+		<p>Your guesses so far: </p>
 		
 	<script type="text/javascript">
 	
 		//sets computer choices
-		var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-		//declares the tallies to 0
-		var computerPoints = 0;
-		var humanPoints = 0;	
+		var letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','c','z'];		
+		var guessCount = 0;
+		var MaxGuesses = 9;
+		var wins = 0;
+		var losses = 0;
+		//var playersGuess=" ";
 		
-		
-
-		_.each(alphabet, function(letter) {console.log(letter);});
-
-		for (var i=0; i < 5;) {
-		var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-		var computerGuess = options[Math.floor(Math.random()*alphabet.length)];
+		var randomNumber = Math.floor(Math.random()*26);
+		var randomLetter = letters[randomNumber];
 		
 
-		if (humanGuess !==computerGuess) {
+		console.log("help letters is " + letters)
+		console.log("letters random is " + randomLetter)
+		console.log("randomnumber is " + randomNumber)
 
 
-			if(humanGuess=='r' && computerGuess)
-		}
-	}
+		document.onkeyup = guessLetter();
+		
+		function guessLetter() {
+
+
+			 	playersGuess=document.getElementById("submitField").value;	
+			 		console.log("playersGuess is "+ playersGuess)
+
+					console.log("playersGuess is " + playersGuess);
+			 		console.log("randomLetter is " + randomLetter);
+			 		//console.log("playersGuess = " + playersGuess);
+
+
+
+				  if (playersGuess == randomLetter){
+				    
+				  }   	
+			
+				  else if (playersGuess != randomLetter){
+				  	
+
+				}  
+				  if (guessCount >= MaxGuesses) {
+		    		//document.getElementById("losses").innerHTML =0 +1;
+		  		}
+				    return; 
+
+				    //document.getElementById("lettersGuessed").value = "";  
+		}  
+	
+	
+ 			//  // prevents saying 'ran out' if guessed in last round
+ 
+		 	//guessCount += 1;
+
+
+		 // Making sure the user chooses a letter from the alphabet
+		 	//if (userGuess == "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ")){
+ 
+			 		
+ 
 
 
 	</script>
