@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<meta charset="utf-8">
 	<title>The Psychic Game</title>
 </head>
 <body>
@@ -9,74 +10,76 @@
 
 	
 		<p>Guess what letter I'm thinking of</p>
-		<input type="text" name="guessInput" id="submitField">
-		<p> Wins: </p>
-		<p>losses: </p>
-		<p>Guesses Left: </p>
-		<p>Your guesses so far: </p>
+		<div>Wins: <span id="winner"></span></div><br>
+		<div>Losses: <span id="loser"></span></div><br>
+		<div>Guesses Left: <span id="remainingGuesses"></span></div><br>
+		<div>Your guesses so far: <span id="guessedLetters"></span></div>
 		
 	<script type="text/javascript">
 	
 		//sets computer choices
 		var letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','c','z'];		
-		var guessCount = 0;
-		var MaxGuesses = 9;
+		var guessesLeft=9
 		var wins = 0;
 		var losses = 0;
-		//var playersGuess=" ";
-		
-		var randomNumber = Math.floor(Math.random()*26);
-		var randomLetter = letters[randomNumber];
-		
+		var playersGuess = null;
+		var randomLetter=null;
+		var showLetters = "";
 
+		function refreshGame(){
+			console.log("-----refreshGame--------")
+			var randomNumber = Math.floor(Math.random()*26);
+			console.log("randomnumber is " + randomNumber)
+			randomLetter = letters[randomNumber];
+			guessesLeft=9;
+			console.log("random letter is " + randomLetter)
+			showLetters = "";
+			document.getElementById("guessedLetters").innerHTML = showLetters;
+		}
+		refreshGame();
+	
 		console.log("help letters is " + letters)
-		console.log("letters random is " + randomLetter)
-		console.log("randomnumber is " + randomNumber)
-
-
-		document.onkeyup = guessLetter();
 		
+		document.getElementById("remainingGuesses").innerHTML = guessesLeft;
+
+		document.onkeypress = function(evt) {
+			    //code taken from Stack Overflow - not sure how it works.
+			    evt = evt || window.event;
+			    var charCode = evt.keyCode || evt.which;
+			    playersGuess = String.fromCharCode(charCode);
+
+			    //calling my function below
+			    guessLetter();
+		};
 		function guessLetter() {
 
-
-			 	playersGuess=document.getElementById("submitField").value;	
-			 		console.log("playersGuess is "+ playersGuess)
+					console.log("-----guessLetter--------")
+					guessesLeft=guessesLeft-1;
+					showLetters = showLetters+ " " + playersGuess;
+			 		document.getElementById("guessedLetters").innerHTML = showLetters;
 
 					console.log("playersGuess is " + playersGuess);
 			 		console.log("randomLetter is " + randomLetter);
-			 		//console.log("playersGuess = " + playersGuess);
-
-
+			 		console.log("guesses left is" + guessesLeft);
 
 				  if (playersGuess == randomLetter){
-				    
-				  }   	
-			
-				  else if (playersGuess != randomLetter){
-				  	
+				    wins = wins +1;
+				    console.log("player WINS");
+				    console.log("wins="+wins);
+				    document.getElementById("winner").innerHTML = wins;
+				    refreshGame();
+				  }  
 
-				}  
-				  if (guessCount >= MaxGuesses) {
-		    		//document.getElementById("losses").innerHTML =0 +1;
+				  if (guessesLeft == 0) { 
+				  	losses = losses +1;
+				  	refreshGame();
+		    		
 		  		}
-				    return; 
-
-				    //document.getElementById("lettersGuessed").value = "";  
+				  document.getElementById("remainingGuesses").innerHTML = guessesLeft;	
+				  document.getElementById("loser").innerHTML = losses;
+				     
 		}  
-	
-	
- 			//  // prevents saying 'ran out' if guessed in last round
- 
-		 	//guessCount += 1;
-
-
-		 // Making sure the user chooses a letter from the alphabet
-		 	//if (userGuess == "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ")){
- 
 			 		
- 
-
-
 	</script>
 	
 </body>
